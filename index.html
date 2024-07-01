@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucapan Ulang Tahun</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        .hidden {
+            display: none;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            background-color: orange;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .text-animation {
+            display: inline-block;
+            animation: typing 2s steps(22), blink 1s infinite;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid;
+            box-sizing: border-box;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+        .star-button {
+            background-color: #ffcc00;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="step1" class="card">
+        <p>Klik Pesannya!</p>
+        <button class="button" onclick="showStep(2)">Klik Pesannya!</button>
+    </div>
+
+    <div id="step2" class="card hidden">
+        <p>Ketik Nama Kamu;)</p>
+        <input type="text" id="nameInput">
+        <button class="button" onclick="showStep(3)">OK</button>
+    </div>
+
+    <div id="step3" class="card hidden">
+        <p><strong>Happy Birthday, <span id="nameDisplay"></span> 🎉🎂</strong></p>
+        <p class="text-animation">Aku ada pesan buat kamu nih;)</p>
+        <p>...</p>
+        <button class="button" onclick="showStep(4)">Klik untuk lanjut</button>
+    </div>
+
+    <div id="step4" class="card hidden">
+        <p>Happy Birthday, <span id="nameDisplay2"></span> 🎉🎂</p>
+        <p>Klik 4 BINTANG di bawah!</p>
+        <button id="star1" class="star-button" onclick="clickStar(1)">⭐</button>
+        <button id="star2" class="star-button" onclick="clickStar(2)">⭐</button>
+        <button id="star3" class="star-button" onclick="clickStar(3)">⭐</button>
+        <button id="star4" class="star-button" onclick="clickStar(4)">⭐</button>
+    </div>
+
+    <div id="step5" class="card hidden">
+        <p class="text-animation">Tunggu...</p>
+        <p class="text-animation">Baca baik-baik yaa</p>
+        <p class="text-animation">Selamat bertambah usia <span id="nameDisplay3"></span></p>
+        <p style="font-size: smaller;">
+            Ciee makin tuaa aja neng><br>
+            Sejauh ini gimana rasanya jadi orang dewasa neng? Nano-nano kah? Wkwkwk<br>
+            Semoga panjang umur, sehat selalu, dan jadi pribadi yang lebih baik lagi
+        </p>
+        <button class="button" onclick="showStep(6)">Lanjut</button>
+    </div>
+
+    <div id="step6" class="card hidden">
+        <p><span id="nameDisplay4"></span>, mau kado ga nih?</p>
+       <button class="button blue" onclick="showGift('yes')">Mauu</button>
+        <button class="button red" onclick="showGift('no')">Engga</button>
+    </div>
+
+    <div id="giftYes" class="card hidden">
+        <p class="floating-bubble">Udah gede ngga usah kado-kadoan ya;) wkwkwk</p>
+    </div>
+
+    <div id="giftNo" class="card hidden">
+        <p class="floating-bubble">Yaudah kalo ngga mau ma 😜</p>
+    </div>
+
+    <div id="finalStep" class="card hidden">
+        <p>Selamat bertambah usia <span id="nameDisplay5"></span></p>
+        <p style="font-size: smaller;">Doa terbaik buat kamu pokoknya</p>
+        <p>Happy Level Up Day;)</p>
+    </div>
+
+    <script>
+        let starsClicked = 0;
+
+        function clickStar(starNumber) {
+            document.getElementById('star' + starNumber).classList.add('hidden');
+            starsClicked++;
+            if (starsClicked === 4) {
+                setTimeout(() => {
+                    showStep(5);
+                }, 500);
+            }
+        }
+
+        function showStep(step) {
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById('step' + i).classList.add('hidden');
+            }
+            document.getElementById('step' + step).classList.remove('hidden');
+
+            // Disable "Klik Pesannya!" button after first click
+            if (step === 1) {
+                document.getElementById('step1').classList.add('hidden');
+            }
+
+            if (step === 3) {
+                const name = document.getElementById('nameInput').value;
+                document.getElementById('nameDisplay').textContent = name;
+                document.getElementById('nameDisplay2').textContent = name;
+            }
+
+            if (step === 5) {
+                const name = document.getElementById('nameInput').value;
+                document.getElementById('nameDisplay3').textContent = name;
+                document.getElementById('nameDisplay4').textContent = name;
+            }
+
+            if (step === 6) {
+                const name = document.getElementById('nameInput').value;
+                document.getElementById('nameDisplay5').textContent = name;
+            }
+        }
+    </script>
+</body>
+</html>
